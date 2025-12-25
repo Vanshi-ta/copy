@@ -19,7 +19,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
   }
 
   return (
-    <article className="min-h-screen bg-background pb-20 pt-10">
+    <article className="min-h-screen bg-white pb-24 pt-16">
       
       {/* Navigation & Actions */}
       <div className="container max-w-4xl mx-auto px-4 mb-8 flex justify-between items-center">
@@ -28,7 +28,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
             <span className="text-sm font-medium">Back to Blog</span>
          </Link>
          <div className="flex gap-2">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+            <Button variant="ghost" size="icon" className="opacity-60 hover:opacity-100">
                <Share2 className="w-4 h-4" />
             </Button>
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
@@ -89,9 +89,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
       )}
 
       {/* Content Section */}
-      <div className="container max-w-3xl mx-auto px-4">
+      <div className="container max-w-[720px] mx-auto px-6">
         <div 
-          className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-xl prose-img:shadow-md leading-relaxed text-foreground/90"
+          className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:leading-7 prose-p:my-6 prose-a:underline prose-img:rounded-xl prose-img:shadow-sm text-foreground/90"
           dangerouslySetInnerHTML={{ __html: post.content || "" }}
         />
         

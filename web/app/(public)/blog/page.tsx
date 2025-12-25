@@ -31,14 +31,15 @@ export default async function Blog() {
   }));
 
   return (
-    <div className="">
-        <Navbar/>
-       <BlogPostsGrid
-          title="Our Blog"
-          description="Read our latest articles about moving, furniture, and more."
-          backgroundLabel="BLOG"
-          posts={formattedPosts}
-       />
-    </div>
-  )
+  <div className="bg-white">
+    <Navbar />
+    <main className="max-w-4xl mx-auto px-6 py-16">
+      <BlogPostsGrid
+        title="Blog"
+        description="Thoughts, guides, and stories."
+        posts={formattedPosts}
+      />
+    </main>
+  </div>
+  );
 }
