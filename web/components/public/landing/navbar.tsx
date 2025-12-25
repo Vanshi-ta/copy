@@ -1,40 +1,56 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button"; 
-import { Globe, Binoculars } from "lucide-react";
+import { Globe, Binoculars, Search, Edit3 } from "lucide-react";
+
 
 export default function Navbar() {
   return (
-    <nav className="w-full border-b border-gray-100 py-3 md:py-4 px-4 md:px-10 flex items-center justify-between bg-white text-black sticky top-0 z-50">
-      {/* Logo Section */}
-      <div className="flex items-center">
-         <Link href="/" className="flex items-center gap-2">
-            {/* Visual proxy for the Owl logo */}
-            <div className="bg-black text-white p-1 rounded-full">
-                {/* <Binoculars className="w-6 h-6 fill-current" />  */}
-            </div>
-            <span className="text-2xl font-extrabold tracking-tight">trpc</span>
-         </Link>
-      </div>
+    <header className="w-full bg-white sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
+        
+        {/* Left: Brand */}
+        <div className="flex items-center gap-2">
+          <Link
+            href="https://www.hscore.com"
+            className="text-3xl font-serif font-bold tracking-tight text-black"
+          >
+            Hscore
+          </Link>
+        </div>
 
-      {/* Navigation Links */}
-      <div className="hidden md:flex items-center gap-8 text-[16px] font-medium text-gray-900">
-        <Link href="#" className="hover:text-black hover:opacity-70 transition-opacity">Discover</Link>
-        <Link href="/blog" className="hover:text-black hover:opacity-70 transition-opacity">Blogs</Link>
-        <Link href="#" className="hover:text-black hover:opacity-70 transition-opacity">Guides</Link>
-        <Link href="#" className="hover:text-black hover:opacity-70 transition-opacity">About</Link>
-      </div>
+        {/* Center: Search */}
+        <div className="flex-1 max-w-md hidden md:block">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 text-sm outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+        </div>
 
-      {/* Right Actions */}
-      <div className="flex items-center gap-2">
-        <button className="flex items-center gap-3 hover:bg-gray-100 px-3 py-2 rounded-full transition-colors font-semibold text-sm">
-            <Globe className="w-5 h-5" />
-            <span className="text-gray-300">|</span>
-            <span>INR</span>
-        </button>
-        <Button className="rounded-full bg-black text-white px-5 hover:bg-black/80 font-semibold text-sm h-10">
+        {/* Right: Actions */}
+        <div className="flex items-center gap-4 text-sm">
+          <button className="hidden sm:flex items-center gap-1 text-muted-foreground hover:text-black transition">
+            <Edit3 className="w-4 h-4" />
+            Write
+          </button>
+
+          <button className="px-4 py-1.5 rounded-full bg-primary text-white font-medium hover:opacity-90 transition">
+            Sign up
+          </button>
+
+          <button className="text-muted-foreground hover:text-black transition">
             Sign in
-        </Button>
+          </button>
+        </div>
       </div>
-    </nav>
+
+      {/* Accent underline */}
+      <div className="h-[2px] bg-primary" />
+    </header>
   );
 }
