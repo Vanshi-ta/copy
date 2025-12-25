@@ -1,0 +1,62 @@
+# Antigravity Development Rules
+
+You are working in a Monorepo containing a **Web** application (Next.js 16) and a **Backend** API (Express).
+
+## 🚀 Technology Stack
+
+-   **Frontend**: Next.js 16 (App Router), TypeScript, Tailwind CSS v4, Shadcn UI / Radix UI.
+-   **Backend**: Express.js, TypeScript.
+-   **Database**: PostgreSQL with Prisma ORM.
+-   **Auth**: Clerk (`@clerk/nextjs`, `@clerk/express`).
+-   **Rich Text**: Tiptap.
+
+## 🏗️ General Guidelines
+
+1.  **Monorepo Awareness**:
+    -   Frontend code resides in `/web`.
+    -   Backend code resides in `/backend`.
+    -   Run commands in the correct directory.
+2.  **Styling**:
+    -   Use **Tailwind CSS v4** exclusively.
+    -   Avoid inline styles.
+    -   Use `clsx` and `tailwind-merge` (via `cn` utility) for dynamic classes.
+3.  **Components**:
+    -   Prefer functional components with typed props.
+    -   Use `lucide-react` for icons.
+
+## 💾 Prisma & Database Rules
+
+> [!IMPORTANT]
+> **CRITICAL**: The Prisma Client is generated to a CUSTOM location.
+
+1.  **Schema Location**: `web/prisma/schema.prisma`.
+2.  **Client Generation**:
+    -   The schema is configured to output the client to `../app/generated/prisma`.
+    -   **NEVER** import from `@prisma/client` directly in frontend code.
+3.  **Instance Usage**:
+    -   Import the singleton instance from: `import prisma from "@/lib/prisma"`.
+    -   This instance is configured with the `PrismaPg` adapter.
+4.  **Workflow**:
+    -   After modifying `schema.prisma`, ALWAYS run: `npx prisma migrate dev`.
+    -   Ensure the client is regenerated: `npx prisma generate`.
+
+## ✍️ Blog Building Rules
+
+1.  **Data Fetching**:
+    -   Use **Server Actions** (`"use server"`) for mutations (Create, Update, Delete).
+    -   Location: `app/actions/blog.ts`.
+    -   Use **Server Components** for fetching data where possible.
+2.  **Content Management**:
+    -   Blog content is stored as HTML/JSON string from **Tiptap**.
+    -   Images should be handled via valid URLs.
+3.  **UI Components**:
+    -   Use existing components in `components/ui/blog-posts.tsx` as a reference.
+    -   Implement responsive grids for post listings.
+4.  **Performance**:
+    -   Use `revalidatePath('/blog')` in server actions after mutations to refresh the cache.
+    -   Use `next/image` for optimized image rendering.
+
+## 🔒 Authentication
+
+-   Use `auth()` or `currentUser()` from `@clerk/nextjs/server` in Server Components/Actions.
+-   Use `useUser()` or `useAuth()` from `@clerk/nextjs` in Client Components.

@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Post {
+  id        Int        @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean    @default(false)
+  authorId  Int
+  category  String     @default("General")
+  imageUrl  String?
+  rating    Int?
+  readTime  Int?
+  views     Int        @default(0)
+  User      UserDetail @relation(fields: [authorId], references: [id])
+}
+
+model UserDetail {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  Post  Post[]
+}
+
+model User {
+  id               String    @id @unique
+  name             String?
+  email            String    @unique
+  password         String?
+  phone            String?
+  type             String    @default("User")
+  address          String?
+  moverId          String?
+  mover            Mover?    @relation(fields: [moverId], references: [moverid])
+  registrationDate DateTime?
+}
+
+model Mover {
+  moverid          String    @unique
+  name             String?
+  email            String    @unique
+  password         String
+  phone            String?
+  type             String    @default("Mover")
+  address          String?
+  vehicle          Vehicle?  @relation(fields: [moverid], references: [id])
+  users            User[]
+  registered       Boolean   @default(false)
+  registrationDate DateTime?
+}
+
+model Vehicle {
+  id     String  @unique
+  name   String?
+  movers Mover[]
+}
+
+model State {
+  id     Int     @id @default(autoincrement())
+  name   String?
+  cities String
+}
